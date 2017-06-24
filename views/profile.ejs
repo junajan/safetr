@@ -1,0 +1,109 @@
+<% include partials/head %>
+
+  <body>
+  <div class="container">
+      <div class="header clearfix">
+          <nav>
+              <ul class="nav nav-pills float-right">
+                  <li class="nav-item">
+                      <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+              </ul>
+          </nav>
+          <h3 class="text-muted">SafeTr</h3>
+      </div>
+
+      <div class="userProfile" style="padding-bottom: 40px;">
+          <div class="row" style="margin-top:0px;     border-bottom: 1px solid #ccc;">
+              <div class="col-md-9">
+                  <h3>
+                      User profile
+                  </h3>
+              </div>
+              <div class="col-md-3">
+                  <div class="button" style="float:right;">
+                      <a href="#" id="editProfileButton" class="btn btn-outline-success btn-sm">Edit Profile</a>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row" style="margin-top:20px;">
+              <div class="col-md-3"> <!-- Image -->
+                  <a href="#">
+                      <img src="<%= user.photos[0].value %>" style="width:160px;height:160px">
+                  </a>
+              </div>
+
+              <div class="col-md-6" id="userInfo"> <!-- Rank & Qualifications -->
+                  <p><b>Name:</b>
+                      <%= user.name.givenName %>
+                      <%= user.name.familyName %>
+                  </p>
+                  <p><b>Email:</b> <%= user.emails[0].value %></p>
+                  <p><b>Gender:</b> <%= user.gender %></p>
+                  <% if(user.info && user.info.nationality) { %>
+                  <p><b>Nationality:</b> <%= user.info.nationality %></p>
+                  <% } %>
+                  <% if(user.info && user.info.number) { %>
+                  <p><b>Number:</b> <%= user.info.number %></p>
+                  <% } %>
+                  <% if(user.info && user.info.emergency) { %>
+                  <p><b>Emergency Contact:</b> <%= user.info.emergency %></p>
+                  <% } %>
+              </div>
+              <div class="col-md-6 hidden" id="userUpdate">
+
+                  <form id="updateUser" action="/user" method="post">
+                      <div class="form-group">
+                          <label for="nationality">Nationality</label>
+                          <input type="nationality" value="<%= user.info && user.info.nationality || "" %>" name="nationality" class="form-control" id="nationality">
+                      </div>
+                      <div class="form-group">
+                          <label for="number">Number:</label>
+                          <input type="text" name="number" value="<%= user.info && user.info.number || "" %>" class="form-control" id="number">
+                      </div>
+                      <div class="form-group">
+                          <label for="emergency">Emergency Contact:</label>
+                          <input type="text" name="emergency" value="<%= user.info && user.info.emergency || "" %>" class="form-control" id="emergency">
+                      </div>
+
+                      <button type="submit" class="btn btn-default">Submit</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+
+      <div class="trips">
+          <h3 style="border-bottom: 1px solid #ccc;">Scheduled trips</h3>
+          <% if(trips && trips.length){ %>
+          <table class="table">
+            <thead>
+              <tr>
+                  <th>#</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < trips.length; i++) { var row = trips[i] %>
+                  <tr>
+                      <th scope="row"><%= i + 1 %></th>
+                      <td><%= row.from %></td>
+                      <td><%= row.to %></td>
+                      <td><%= row.date %></td>
+                  </tr>
+                <% } %>
+              </tbody>
+          </table>
+          <% } else{ %>
+              <p>You have no scheuled trips at this time.</p>
+          <% } %>
+      </div>
+      <footer class="footer">
+          <p>Abcd Footer</p>
+      </footer>
+
+  </div> <!-- /container -->
+  </body>
+</html>
