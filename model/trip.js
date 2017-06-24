@@ -4,16 +4,22 @@ const TripStore = class {
     this.trips = {}
   }
 
-  get (id) {
-    return this.trips[id]
+  add(id, trip) {
+    if(!this.trips[id])
+      this.trips[id] = []
+
+    this.trips[id].push(trip)
   }
 
-  set (id, trip) {
-    this.trips[id] = trip
+  get(id) {
+    return this.trips[id] || [];
   }
 
-  getList() {
-    return this.trips
+  getByIndex(id, index) {
+    if(!this.trips[id])
+      this.trips[id] = []
+
+    return this.trips[id][index] || [];
   }
 }
 

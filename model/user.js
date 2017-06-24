@@ -1,7 +1,10 @@
+const conf = require("../config/auth")
+
 const UserStore = class {
   constructor () {
-    console.log("Initing user store")
+    console.log("Initing user store with domain %s", conf.trackingDomain)
     this.users = {}
+    this.trackingDomain = conf.trackingDomain
   }
 
   get (id) {
@@ -9,6 +12,7 @@ const UserStore = class {
   }
 
   set (id, user) {
+    user.trackingEmail = [id, this.trackingDomain].join('@')
     this.users[id] = user
   }
 

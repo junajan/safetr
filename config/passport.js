@@ -33,9 +33,6 @@ module.exports = function(passport) {
       "verified"
     ]
   },
-
-
-
   function(token, refreshToken, profile, done) {
     done(null, {
       profile, token, refreshToken

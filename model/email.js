@@ -13,6 +13,16 @@ const Email = class {
     return str.substr(init+1,fin-init-1)
   }
 
+  parseDate (date) {
+    const parsed = moment(date, "MMM DD HH:mm")
+
+    if(moment().isAfter(parsed))
+      parsed.add(1, 'y')
+
+    return parsed
+      .format('DD.MM.YYYY HH:mm')
+  }
+
   parse (html) {
     const $ = cheerio.load(html)
 
@@ -23,17 +33,14 @@ const Email = class {
     const info = {
       from: departures.find('td:nth-child(4)').text(),
       to: arrival.find('td:nth-child(4)').text(),
-      date: _.trim(departures.find('td:nth-child(2)').text())
+      dateRaw: _.trim(departures.find('td:nth-child(2)').text())
     }
 
     info.fromKey = this.getAirportKey(info.from);
     info.toKey = this.getAirportKey(info.to);
+    info.date = this.parseDate(info.dateRaw);
 
-    console.log(info)
-    process.exit() // TODO remove me
-    console.log(departures)
-    console.log("============")
-    console.log(arrival)
+    return info
   }
 }
 

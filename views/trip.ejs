@@ -1,0 +1,30 @@
+<% include partials/head %>
+
+  <body>
+  <div class="container">
+      <% include partials/menu %>
+
+      <div class="userProfile" style="border-bottom: 1px solid #ccc;">
+          <a href="/profile">&lt;&lt; Zpět na profil</a>
+      </div>
+
+      <br />
+      <div class="tripDetail">
+          <h3 style="border-bottom: 1px solid #ccc;">Trip from <%= trip.ticket.from %> to <%= trip.ticket.to %> on <%= trip.ticket.date %></h3>
+          <%- JSON.stringify(trip) %>
+
+
+          <hr />
+          Info:
+          <%- JSON.stringify(countryInfo) %>
+          <hr />
+          Stats:
+          <%- JSON.stringify(countryFromStats) %>
+          <%- JSON.stringify(countryToStats) %>
+      </div>
+        <br />
+      <% include partials/footer %>
+
+  </div> <!-- /container -->
+  </body>
+</html>

@@ -2,16 +2,7 @@
 
   <body>
   <div class="container">
-      <div class="header clearfix">
-          <nav>
-              <ul class="nav nav-pills float-right">
-                  <li class="nav-item">
-                      <a class="nav-link" href="/logout">Logout</a>
-                  </li>
-              </ul>
-          </nav>
-          <h3 class="text-muted">SafeTr</h3>
-      </div>
+    <% include partials/menu %>
 
       <div class="userProfile" style="padding-bottom: 40px;">
           <div class="row" style="margin-top:0px;     border-bottom: 1px solid #ccc;">
@@ -83,15 +74,21 @@
                   <th>From</th>
                   <th>To</th>
                   <th>Date</th>
+                  <th></th>
               </tr>
             </thead>
             <tbody>
                 <% for(var i=0; i < trips.length; i++) { var row = trips[i] %>
                   <tr>
                       <th scope="row"><%= i + 1 %></th>
-                      <td><%= row.from %></td>
-                      <td><%= row.to %></td>
-                      <td><%= row.date %></td>
+                      <td><%= row.ticket.from %></td>
+                      <td><%= row.ticket.to %></td>
+                      <td><%= row.ticket.date %></td>
+                      <td>
+                          <a href="/profile/trip/<%= i %>">
+                              <i class="fa fa-info-circle" aria-hidden="true"></i>
+                          </a>
+                      </td>
                   </tr>
                 <% } %>
               </tbody>
@@ -100,9 +97,7 @@
               <p>You have no scheuled trips at this time.</p>
           <% } %>
       </div>
-      <footer class="footer">
-          <p>Abcd Footer</p>
-      </footer>
+      <% include partials/footer %>
 
   </div> <!-- /container -->
   </body>
